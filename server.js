@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.post('/textmsg', (req, res) => {
- console.log('=================HIT==============')
     let prevNumber 
     if(req.body.From === env.parsed.MY_NUMBER) {
         state.simsMsg = req.body.Body
@@ -43,14 +42,13 @@ app.post('/textmsg', (req, res) => {
           console.log(message.sid); 
       });
     }
-   res.status(200).json({msg: 'this is working'})
+   res.status(200).json({msg: 'sent'})
 })
 
 
 
 
 app.post('/voice', (request, response) => {
-  console.log("+++++++++++CALL WAS RECIEVED ++++++++++")
   const VoiceResponse = require('twilio').twiml.VoiceResponse;
   const twiml = new VoiceResponse();
   twiml.say({ voice: 'alice' }, 'TEST');
@@ -61,11 +59,9 @@ app.post('/voice', (request, response) => {
 
 
 app.post('/whatsapp', (req, res) => {
-  console.log('=================HIT==============')
   let prevNumber 
   if(req.body.From === env.parsed.MY_NUMBER) {
     state2.simsMsg2 = req.body.Body
-    console.log('noting')
     client.messages.create({ 
       to: state2.lastNum2, 
       from:env.parsed.TWILIO_NUMBER_WHATSAPP,
@@ -85,7 +81,7 @@ app.post('/whatsapp', (req, res) => {
       console.log(message.sid); 
   });
   }
-      res.status(200).json({msg: 'this is working'})
+      res.status(200).json({msg: 'sent'})
  })
 
 
